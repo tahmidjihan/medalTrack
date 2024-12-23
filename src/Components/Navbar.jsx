@@ -1,24 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { useAuth } from '../Routes/AuthProvider';
 
 function Navbar() {
+  const { user, logOut } = useAuth();
+
   function Menu() {
     return (
       <>
         <li>
-          <Link to='/login'>Login</Link>
+          <Link to='/'>Home</Link>
         </li>
 
         <li>
-          <Link to='/register'>Register</Link>
+          <a>Marathons</a>
         </li>
-
-        <li>
-          <a>Link 3</a>
-        </li>
-        <li>
-          <a>Link 4</a>
-        </li>
+        {!user ? (
+          <>
+            <li>
+              <Link to='/login'>Login</Link>
+            </li>
+            <li>
+              <Link to='/register'>Register</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to='/dashboard'>Dashboard</Link>
+            </li>
+            <li className=' p-0'>
+              <div>
+                <img
+                  src={user?.photoURL}
+                  className='w-[50px] h-[50px] rounded-full'
+                  alt=''
+                />
+              </div>
+            </li>
+            <li>
+              <button onClick={logOut} className='bg-error font-bold'>
+                Logout
+              </button>
+            </li>
+          </>
+        )}
       </>
     );
   }
@@ -32,7 +58,7 @@ function Navbar() {
           </a>
         </div>
         <div className='flex-none'>
-          <ul className='menu menu-horizontal px-1 hidden md:flex'>
+          <ul className='menu menu-horizontal px-1 items-center hidden md:flex'>
             <Menu></Menu>
           </ul>
           <div className='dropdown dropdown-left flex md:hidden'>

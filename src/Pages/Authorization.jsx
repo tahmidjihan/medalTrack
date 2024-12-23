@@ -20,6 +20,10 @@ function Authorization({ login }) {
       signUp(email, password, name, image);
     }
   }
+  if (user) {
+    navigate('/');
+    return null;
+  }
   return (
     <>
       <>
