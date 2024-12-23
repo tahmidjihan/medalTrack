@@ -1,15 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 function Navbar() {
   function Menu() {
     return (
       <>
         <li>
-          <a>Link 1</a>
+          <Link to='/login'>Login</Link>
         </li>
+
         <li>
-          <a>Link 2</a>
+          <Link to='/register'>Register</Link>
         </li>
+
         <li>
           <a>Link 3</a>
         </li>

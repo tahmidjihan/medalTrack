@@ -13,14 +13,12 @@ function Footer() {
             MedalTrack
           </a>
           <p className='pt-5'>
-            Your go-to resource for navigating the process of studying abroad in
-            Australia is Top Catalyst Consulting. We enable students to realize
-            their educational goals by providing them with individualized
-            support, professional supervision, and access to prestigious
-            schools. Our staff guarantees a smooth process that is customized to
-            your objectives, from course selection to visa assistance. With the
-            support of Top Catalyst Consulting, you may confidently embark on
-            your future.
+            At MedalTrack, we’re dedicated to making every step of your marathon
+            journey seamless, from the starting line to the finish. Whether
+            you're an organizer, participant, or sponsor, our platform is built
+            to deliver precision, simplicity, and celebration. Join us in
+            creating unforgettable race experiences that inspire, connect, and
+            empower communities worldwide.
           </p>
           <ul className='flex gap-6 pt-5 flex-col lg:flex-row font-medium text-white text-xl'>
             <li>Home</li>

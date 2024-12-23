@@ -6,26 +6,55 @@ function Home() {
       {
         title: 'Effortless Marathon Management',
         description:
-          'Streamline every step of your marathon event with tools for registration, participant tracking, and real-time updates.',
-        image: './../assets/marathon.jpg',
+          'Simplify the entire marathon management process with our intuitive platform. From participant registration to organizing race-day logistics, MedalTrack is designed to handle it all. Our user-friendly tools make it easy to track registrations, manage participants, and oversee event updates in real-time, allowing you to focus on creating an unforgettable experience for everyone involved.',
+        image: './marathon.jpg',
       },
       {
         title: 'Track Progress, Celebrate Achievement',
         description:
-          'Empower participants with live tracking and instant result notifications that make every milestone unforgettable.',
-        image: './../assets/finish.jpg',
+          'Give every runner a memorable experience with MedalTrack’s live tracking and instant result features. Participants can track their progress in real-time, making each milestone feel special. Our system ensures accurate results are delivered instantly, letting runners celebrate their achievements and share their success stories effortlessly.',
+        image: './finish.jpg',
       },
       {
         title: 'Sponsors & Community First',
         description:
-          'Connect with audiences and showcase your brand with integrated sponsorship opportunities and meaningful analytics.',
-        image: './../assets/marathon-large.jpg',
+          'MedalTrack connects sponsors to their target audience while fostering a sense of community among participants and supporters. Showcase your brand seamlessly on participant interfaces, race materials, and event banners. Our platform provides detailed analytics to measure engagement and help sponsors create meaningful connections with the running community.',
+        image: './marathon-large.jpg',
       },
     ];
+
+    return (
+      <>
+        <div className='min-h-screen sm:h-64 xl:h-80 2xl:h-96'>
+          <Carousel>
+            {slideInfo.map((slide) => (
+              <div
+                key={slide.title}
+                className='h-full w-full relative flex items-center justify-center'>
+                <img
+                  className='h-full w-full object-cover'
+                  src={slide.image}
+                  alt={slide.title}
+                />
+                <div className='absolute inset-0 bg-black bg-opacity-50'></div>{' '}
+                <div className='absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
+                  <h1 className='text-6xl uppercase font-bold text-white mb-4'>
+                    {slide.title}
+                  </h1>
+                  <p className='text-lg text-white'>{slide.description}</p>
+                </div>
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      </>
+    );
   }
+
   return (
     <>
-      <h1>this is home</h1>
+      <HeroCarousel />
+      <h1>Home</h1>
     </>
   );
 }
