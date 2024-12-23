@@ -4,6 +4,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
+  updateProfile,
 } from 'firebase/auth';
 import React, { useEffect } from 'react';
 import auth from './firebase.config';
@@ -20,10 +22,16 @@ function AuthProvider({ children }) {
       setUser(userCredential.user);
     });
   }
-  function signUp(email, password) {
+  function signUp(email, password, name, image) {
     createUserWithEmailAndPassword(auth, email, password).then(
       (userCredential) => {
-        setUser(userCredential.user);
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: name,
+          photoURL: image,
+        }).then(() => {
+          setUser(user);
+        });
       }
     );
   }

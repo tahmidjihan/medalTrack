@@ -3,9 +3,11 @@ import Lottie from 'lottie-react';
 import loginLottie from './../assets/login.json';
 import registerLottie from './../assets/register.json';
 import { useAuth } from '../Routes/AuthProvider';
+import { useNavigate } from 'react-router';
 
 function Authorization({ login }) {
   const { signUp, loginWithGoogle, signIn, user } = useAuth();
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.email.value;
@@ -13,7 +15,9 @@ function Authorization({ login }) {
     if (login) {
       signIn(email, password);
     } else {
-      signUp(email, password);
+      const name = e.target.name.value;
+      const image = e.target.image.value;
+      signUp(email, password, name, image);
     }
   }
   return (
@@ -83,14 +87,14 @@ function Authorization({ login }) {
                   <>
                     <div>
                       <label
-                        htmlFor='username'
+                        htmlFor='name'
                         className='block text-sm font-medium text-gray-700'>
-                        Username
+                        Name
                       </label>
                       <input
                         type='text'
-                        id='username'
-                        name='username'
+                        id='name'
+                        name='name'
                         required
                         className='mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300'
                       />
@@ -147,8 +151,17 @@ function Authorization({ login }) {
               </form>
               <div className='mt-4 text-sm text-gray-600 text-center'>
                 <p>
-                  Already have an account?{' '}
-                  <span className='text-black hover:underline'>Login here</span>
+                  {login
+                    ? "Don't have an account? "
+                    : 'Already have an account? '}
+                  <button
+                    type='button'
+                    onClick={() =>
+                      login ? navigate('/register') : navigate('/login')
+                    }
+                    className='btn btn-sm rounded-full text-black border-1 border-gray-300 bg-primary-lime hover:bg-lime-500'>
+                    {login ? 'Sign Up' : 'Login'}
+                  </button>
                 </p>
               </div>
             </div>
