@@ -9,7 +9,7 @@ function Footer() {
         data-theme='dark'>
         <aside className='flex flex-col items-center max-w-4xl text-[#ddddddbb]'>
           <a className='btn btn-ghost text-3xl font-bold flex flex-row bg-[#212121] text-white'>
-            <img src='./medal.svg' className='w-10 h-10' alt='' />
+            <img src='./../medal.svg' className='w-10 h-10' alt='' />
             MedalTrack
           </a>
           <p className='pt-5'>

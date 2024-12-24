@@ -4,6 +4,7 @@ import App from '../App';
 import Layout from './Layout';
 import Home from '../Pages/Home';
 import Authorization from './../Pages/Authorization';
+import Marathon from '../Pages/Marathon';
 
 function Router() {
   return (
@@ -16,6 +17,10 @@ function Router() {
       <Route
         path='/register'
         element={<Layout children={<Authorization login={false} />} />}
+      />
+      <Route
+        path='/marathons/:id'
+        element={<Layout children={<Marathon />} />}
       />
     </Routes>
   );

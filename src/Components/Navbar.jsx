@@ -53,7 +53,7 @@ function Navbar() {
       <div className='navbar bg-base-100 shadow-md'>
         <div className='flex-1'>
           <a className='btn btn-ghost text-xl font-bold flex flex-row bg-[#212121] text-white'>
-            <img src='./medal.svg' className='w-8 h-8' alt='' />
+            <img src='./../medal.svg' className='w-8 h-8' alt='Logo' />
             MedalTrack
           </a>
         </div>

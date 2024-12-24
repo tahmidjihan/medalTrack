@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel } from 'flowbite-react';
+import axios from 'axios';
+import { Button, Card } from 'flowbite-react';
+import { Link } from 'react-router';
 function Home() {
   function HeroCarousel() {
     const slideInfo = [
@@ -50,11 +53,59 @@ function Home() {
       </>
     );
   }
-
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/marathons?size=6').then((result) => {
+      setCards(result.data);
+    });
+  }, []);
   return (
     <>
       <HeroCarousel />
-      <h1>Home</h1>
+      <section>
+        <div className='container mx-auto px-4 py-16'>
+          <div className='section-header text-center '>
+            <h1 className='text-4xl font-bold mb-4'>
+              About Some Running Marathons
+            </h1>
+            <p>
+              Explore the world of running marathons. Discover the thrill and
+              excitement of these iconic events.Here is out top marathons
+            </p>
+          </div>
+          <div className='cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-9'>
+            {cards.map((card) => {
+              return (
+                <Card className='max-w-sm' key={card._id}>
+                  <h2 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+                    {card.title}
+                  </h2>
+                  <span className='text-sm text-gray-500'>{card.date}</span>
+                  <p className='font-normal text-gray-700 dark:text-gray-400'>
+                    {card.subject}
+                  </p>
+                  <Link
+                    to={`/marathons/${card._id}`}
+                    className='btn w-full bg-primary-lime border-black text-black hover:bg-lime-500'>
+                    Read more
+                    <svg
+                      className='-mr-1 ml-2 h-4 w-4'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'>
+                      <path
+                        fillRule='evenodd'
+                        d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
+                  </Link>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
