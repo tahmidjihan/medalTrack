@@ -54,7 +54,7 @@ function AuthProvider({ children }) {
       if (user) {
         setUser(user);
       } else {
-        setUser(null);
+        setUser(undefined);
       }
     });
 

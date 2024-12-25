@@ -16,7 +16,7 @@ function Navbar() {
           <Link to='/marathons'>Marathons</Link>
         </li>
         <li>
-          <Link to='/updateMarathon'>update Marathons </Link>
+          <Link to='/myMarathons'>My Marathons </Link>
         </li>
         <li>
           <Link to='/addMarathon'> add Marathons</Link>

@@ -7,6 +7,7 @@ import Authenticate from '../Pages/Authenticate';
 import Marathon from '../Pages/Marathon';
 import Marathons from '../Pages/Marathons';
 import UpdateMarathon from '../Pages/UpdateMarathon';
+import MyMarathons from '../Pages/MyMarathons';
 
 function Router() {
   return (
@@ -26,12 +27,16 @@ function Router() {
       />
       <Route path='/marathons' element={<Layout children={<Marathons />} />} />
       <Route
-        path='/updateMarathon'
+        path='/updateMarathon/:id'
         element={<Layout children={<UpdateMarathon isUpdate={true} />} />}
       />
       <Route
         path='/addMarathon'
         element={<Layout children={<UpdateMarathon isUpdate={false} />} />}
+      />
+      <Route
+        path='/myMarathons'
+        element={<Layout children={<MyMarathons />} />}
       />
     </Routes>
   );

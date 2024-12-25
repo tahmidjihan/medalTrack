@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { use } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../Routes/AuthProvider';
+import { useNavigate, useParams } from 'react-router';
 
 function UpdateMarathon({ isUpdate }) {
   const { user } = useAuth();
@@ -12,6 +13,26 @@ function UpdateMarathon({ isUpdate }) {
   const [registrationEnd, setRegistrationEnd] = useState(date);
   const [selectedDate, setSelectedDate] = useState(date);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [marathon, setMarathon] = useState([]);
+  const navigate = useNavigate();
+  const id = useParams().id;
+
+  useEffect(() => {
+    if (user === undefined) {
+      navigate('/login');
+      return;
+    }
+    setLoading(false);
+  }, [user]);
+
+  if (isUpdate) {
+    useEffect(() => {
+      axios.get(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
+        setMarathon(res.data[0]);
+      });
+    }, [user, loading]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,10 +59,12 @@ function UpdateMarathon({ isUpdate }) {
       created_at,
       created_by: user.email,
     };
+
     axios.post('http://localhost:3000/api/marathons', data).then((res) => {
       console.log(res.data);
     });
   };
+  console.log(marathon);
   return (
     <>
       <div className='min-h-screen'>
@@ -63,6 +86,7 @@ function UpdateMarathon({ isUpdate }) {
                     type='text'
                     placeholder='Enter Title'
                     name='title'
+                    defaultValue={marathon?.title}
                     required
                     className='input input-bordered w-full max-w-xs'
                   />
@@ -90,7 +114,7 @@ function UpdateMarathon({ isUpdate }) {
                   <select
                     className='select select-bordered w-full max-w-xs'
                     name='distance'
-                    defaultValue={'Select Distance'}>
+                    defaultValue={marathon?.distance || 'Select Distance'}>
                     <option disabled>Select Distance</option>
                     <option>15km or less</option>
                     <option>16km-20km</option>
@@ -114,6 +138,7 @@ function UpdateMarathon({ isUpdate }) {
                     type='text'
                     placeholder='Enter imageURL'
                     name='imageURL'
+                    defaultValue={marathon?.imageURL}
                     required
                     className='input input-bordered w-full max-w-xs'
                   />
@@ -124,6 +149,7 @@ function UpdateMarathon({ isUpdate }) {
                     type='text'
                     placeholder='Enter Location'
                     name='location'
+                    defaultValue={marathon?.location}
                     required
                     className='input input-bordered w-full max-w-xs'
                   />
@@ -134,6 +160,7 @@ function UpdateMarathon({ isUpdate }) {
                     type='text'
                     placeholder='Enter Description'
                     name='description'
+                    defaultValue={marathon?.description}
                     required
                     className='input input-bordered w-full max-w-xs'
                   />
