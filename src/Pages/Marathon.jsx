@@ -35,41 +35,25 @@ function Marathon() {
               </h1>
               <p className='text-md text-gray-500 font-medium flex gap-2 items-center'>
                 <FaCalendarDays />
-                {marathon?.date}
+                {marathon?.eventDay}
+              </p>
+              <p className='text-md text-gray-500 font-medium flex gap-2 items-center py-2'>
+                <span className='font-bold'>Registration:</span>
+                <span>
+                  {' '}
+                  {marathon?.registrationStart} to{' '}
+                  {marathon?.registrationEnding}
+                </span>
               </p>
               <p className='text-lg font-medium py-2'>{marathon?.subject}</p>
               <p>{marathon?.description}</p>
 
-              <span className='text-xl font-medium py-2 flex items-center gap-2'>
-                <FaSackDollar />
-                <span className='font-bold'>Prize:</span> {marathon?.prize}
-              </span>
               <span className='text-lg font-medium py-2 flex items-center gap-2'>
                 <FaLocationDot />
                 <span className='font-bold'>Location:</span>{' '}
                 {marathon?.location}
               </span>
-              <span className='text-lg font-medium py-2 flex items-center gap-2'>
-                <FaBuildingUser />
-                <span className='font-bold'>Organizer:</span>{' '}
-                {marathon?.organizer}
-              </span>
-              <span className='text-lg font-medium py-2 flex items-center gap-2'>
-                <FaUser />
-                <span className='font-bold'>Contact:</span> {marathon?.contact}
-              </span>
-              <span className='flex gap-2 items-center'>
-                <FaTag />
-                <span className='font-bold'>Tags:</span>
-                {marathon.races &&
-                  marathon.races.map((race) => {
-                    return (
-                      <div className='badge badge-accent' key={race}>
-                        {race}
-                      </div>
-                    );
-                  })}
-              </span>
+
               <button
                 onClick={() => setOpenModal(true)}
                 className='btn bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg my-5 font-bold px-5'>

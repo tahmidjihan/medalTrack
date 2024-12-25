@@ -15,6 +15,12 @@ function Navbar() {
         <li>
           <Link to='/marathons'>Marathons</Link>
         </li>
+        <li>
+          <Link to='/updateMarathon'>update Marathons </Link>
+        </li>
+        <li>
+          <Link to='/addMarathon'> add Marathons</Link>
+        </li>
         {!user ? (
           <>
             <li>

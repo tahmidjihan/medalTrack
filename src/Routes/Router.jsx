@@ -6,6 +6,7 @@ import Home from '../Pages/Home';
 import Authenticate from '../Pages/Authenticate';
 import Marathon from '../Pages/Marathon';
 import Marathons from '../Pages/Marathons';
+import UpdateMarathon from '../Pages/UpdateMarathon';
 
 function Router() {
   return (
@@ -24,6 +25,14 @@ function Router() {
         element={<Layout children={<Marathon />} />}
       />
       <Route path='/marathons' element={<Layout children={<Marathons />} />} />
+      <Route
+        path='/updateMarathon'
+        element={<Layout children={<UpdateMarathon isUpdate={true} />} />}
+      />
+      <Route
+        path='/addMarathon'
+        element={<Layout children={<UpdateMarathon isUpdate={false} />} />}
+      />
     </Routes>
   );
 }
