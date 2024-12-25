@@ -1,14 +1,7 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import {
-  FaCalendarDays,
-  FaBuildingUser,
-  FaLocationDot,
-  FaSackDollar,
-  FaTag,
-  FaUser,
-} from 'react-icons/fa6';
+import { FaCalendarDays, FaLocationDot } from 'react-icons/fa6';
 import { Button, Modal } from 'flowbite-react';
 
 function Marathon() {
@@ -30,6 +23,13 @@ function Marathon() {
             <h1 className='text-5xl font-extrabold'>Marathon Details</h1>
             <h2 className='text-2xl font-bold'>Details</h2>
             <div className='py-10'>
+              <figure>
+                <img
+                  className='h-xl max-w-2xl w-full object-cover rounded-xl'
+                  src={marathon?.imageURL}
+                  alt={marathon?.title}
+                />
+              </figure>
               <h1 className='text-4xl font-extrabold pt-2'>
                 {marathon?.title}
               </h1>

@@ -23,6 +23,9 @@ function UpdateMarathon({ isUpdate }) {
       navigate('/login');
       return;
     }
+    if (!isUpdate) {
+      setLoading(false);
+    }
   }, [user]);
 
   if (isUpdate) {
@@ -68,6 +71,7 @@ function UpdateMarathon({ isUpdate }) {
       return;
     }
     axios.post('http://localhost:3000/api/marathons', data).then((res) => {});
+    navigate('/myMarathons');
   };
 
   if (loading) {
@@ -82,7 +86,9 @@ function UpdateMarathon({ isUpdate }) {
       <div className='min-h-screen'>
         <div className='container py-16 px-4 md:px-20'>
           <div>
-            <h1 className='text-5xl font-extrabold'>Update Marathon</h1>
+            <h1 className='text-5xl font-extrabold'>
+              {isUpdate ? 'Update' : 'Create'} Marathon
+            </h1>
             <p>Update Marathon Details here, if you want to </p>
           </div>
           <div className='py-10'>
@@ -182,7 +188,7 @@ function UpdateMarathon({ isUpdate }) {
 
                 <div className='form-controls flex flex-col gap-1'>
                   <button className='btn bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg my-5 font-bold px-5 max-w-xs'>
-                    Update
+                    {isUpdate ? 'Update' : 'Create'}
                   </button>
                 </div>
               </form>

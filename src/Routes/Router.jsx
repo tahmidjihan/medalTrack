@@ -8,6 +8,8 @@ import Marathon from '../Pages/Marathon';
 import Marathons from '../Pages/Marathons';
 import UpdateMarathon from '../Pages/UpdateMarathon';
 import MyMarathons from '../Pages/MyMarathons';
+import Dashboard from '../Pages/Dashboard';
+import SideNav from '../Components/SideNav';
 
 function Router() {
   return (
@@ -28,15 +30,55 @@ function Router() {
       <Route path='/marathons' element={<Layout children={<Marathons />} />} />
       <Route
         path='/updateMarathon/:id'
-        element={<Layout children={<UpdateMarathon isUpdate={true} />} />}
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 flex-wrap'>
+                <SideNav />
+                <UpdateMarathon isUpdate={true} />
+              </div>
+            }
+          />
+        }
       />
       <Route
         path='/addMarathon'
-        element={<Layout children={<UpdateMarathon isUpdate={false} />} />}
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 flex-wrap'>
+                <SideNav />
+                <UpdateMarathon isUpdate={false} />
+              </div>
+            }
+          />
+        }
       />
       <Route
         path='/myMarathons'
-        element={<Layout children={<MyMarathons />} />}
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 flex-wrap'>
+                <SideNav />
+                <MyMarathons />
+              </div>
+            }
+          />
+        }
+      />
+      <Route
+        path='/dashboard'
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 flex-wrap'>
+                <SideNav />
+                <Dashboard />
+              </div>
+            }
+          />
+        }
       />
     </Routes>
   );

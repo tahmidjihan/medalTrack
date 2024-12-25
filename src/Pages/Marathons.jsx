@@ -12,17 +12,24 @@ function Marathons() {
     });
   }, []);
   return (
-    <div className='container py-16 px-4 md:px-20'>
+    <div className='container py-16 mx-auto px-4 md:px-20'>
       <div className='cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-9'>
         {cards.map((card) => {
           return (
             <Card className='max-w-sm' key={card._id}>
+              <figure>
+                <img
+                  className='h-56 w-full object-cover rounded-xl'
+                  src={card.imageURL}
+                  alt={card.title}
+                />
+              </figure>
               <h2 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
                 {card.title}
               </h2>
-              <span className='text-sm text-gray-500'>{card.date}</span>
+              <span className='text-sm text-gray-500'>{card.eventDay}</span>
               <p className='font-normal text-gray-700 dark:text-gray-400'>
-                {card.subject}
+                {card.description}
               </p>
               <Link
                 to={`/marathons/${card._id}`}

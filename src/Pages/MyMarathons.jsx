@@ -8,6 +8,7 @@ function MyMarathons() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [marathons, setMarathons] = useState([]);
+  const [updated, setUpdated] = useState(false);
   useEffect(() => {
     if (user === undefined) {
       navigate('/login');
@@ -23,12 +24,17 @@ function MyMarathons() {
           setMarathons(res.data);
         });
     }
-  }, [loading, user]);
+  }, [loading, user, updated]);
+  function handleDelete(id) {
+    axios.delete(`http://localhost:3000/api/marathons/${id}`).then((res) => {
+      setUpdated(!updated);
+    });
+  }
 
   return (
     <>
-      <div className='min-h-screen'>
-        <div className='container py-16 px-4 md:px-20'>
+      <div className='min-h-screen '>
+        <div className='container py-16 px-4 mx-auto md:px-20'>
           <div className='text-center'>
             <h1 className='text-5xl font-extrabold'>My Marathons</h1>
             <h2 className='text-2xl font-bold'>Details</h2>
@@ -66,7 +72,7 @@ function MyMarathons() {
                         <td>
                           <button
                             onClick={() => {
-                              // console.log(marathon._id);
+                              handleDelete(marathon._id);
                             }}
                             className='btn btn-error border-black btn-sm'>
                             Delete
