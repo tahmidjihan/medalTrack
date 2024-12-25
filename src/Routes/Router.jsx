@@ -10,6 +10,7 @@ import UpdateMarathon from '../Pages/UpdateMarathon';
 import MyMarathons from '../Pages/MyMarathons';
 import Dashboard from '../Pages/Dashboard';
 import SideNav from '../Components/SideNav';
+import MyApplications from '../Pages/myApplications';
 
 function Router() {
   return (
@@ -62,6 +63,19 @@ function Router() {
               <div className='flex gap-4 flex-wrap'>
                 <SideNav />
                 <MyMarathons />
+              </div>
+            }
+          />
+        }
+      />
+      <Route
+        path='/myApplications'
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 flex-wrap'>
+                <SideNav />
+                <MyApplications />
               </div>
             }
           />

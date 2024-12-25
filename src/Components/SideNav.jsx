@@ -42,8 +42,12 @@ function SideNav() {
             My Marathons
           </Sidebar.Item>
 
-          <Sidebar.Item href='#' icon={HiShoppingBag}>
-            Products
+          <Sidebar.Item
+            onClick={() => {
+              navigate('/myApplications');
+            }}
+            icon={HiShoppingBag}>
+            My Applications
           </Sidebar.Item>
 
           <Sidebar.Item

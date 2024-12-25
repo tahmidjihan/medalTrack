@@ -25,7 +25,9 @@ function Marathon() {
   }, []);
   function handleSubmit(e) {
     e.preventDefault();
-    const { name, email, phone } = new FormData(e.target);
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const phone = e.target.phone.value;
 
     const data = {
       name: name,
@@ -45,9 +47,7 @@ function Marathon() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
-        axios
-          .post('http://localhost:3000/api/applications', data)
-          .then((res) => {});
+        axios.post('http://localhost:3000/api/applications', data);
         setOpenModal(false);
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info');

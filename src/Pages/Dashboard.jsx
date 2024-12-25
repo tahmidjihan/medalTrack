@@ -1,12 +1,11 @@
 import React from 'react';
-import SideNav from './../Components/SideNav';
 
 function Dashboard() {
   return (
     <>
       <div className='flex gap-4 flex-wrap'>
-        <div>
-          <h1>Dashboard</h1>
+        <div className='w-full px-10 py-10'>
+          <h1 className='text-5xl font-extrabold'>Dashboard</h1>
         </div>
       </div>
     </>
