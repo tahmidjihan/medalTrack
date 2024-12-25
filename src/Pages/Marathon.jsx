@@ -1,11 +1,20 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import { FaCalendarDays, FaLocationDot } from 'react-icons/fa6';
+import {
+  FaCalendarDays,
+  FaEnvelope,
+  FaLocationDot,
+  FaPhone,
+  FaUser,
+} from 'react-icons/fa6';
 import { Button, Modal } from 'flowbite-react';
+import Swal from 'sweetalert2';
+import { useAuth } from '../Routes/AuthProvider';
 
 function Marathon() {
   const { id } = useParams();
+  const { user } = useAuth();
   const [marathon, setMarathon] = React.useState({});
   const [openModal, setOpenModal] = React.useState(false);
   useEffect(() => {
@@ -14,7 +23,39 @@ function Marathon() {
       setMarathon(res.data[0]);
     });
   }, []);
-  //   console.log(`http://localhost:3000/api/marathons?id=${id}`);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { name, email, phone } = new FormData(e.target);
+
+    const data = {
+      name: name,
+      email: email,
+      phone: phone,
+      user_email: user?.email,
+      marathon_title: marathon?.title,
+      marathon_id: id,
+    };
+    Swal.fire({
+      title: 'Do you want to submit the application?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+        axios
+          .post('http://localhost:3000/api/applications', data)
+          .then((res) => {});
+        setOpenModal(false);
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
+
+    // setOpenModal(false);
+  }
   return (
     <>
       <div className='min-h-screen'>
@@ -63,31 +104,56 @@ function Marathon() {
                 dismissible
                 show={openModal}
                 onClose={() => setOpenModal(false)}>
-                <Modal.Header>Terms of Service</Modal.Header>
+                <Modal.Header>Apply Now</Modal.Header>
                 <Modal.Body>
                   <div className='space-y-6'>
-                    <p className='text-base leading-relaxed text-gray-500 dark:text-gray-400'>
-                      With less than a month to go before the European Union
-                      enacts new consumer privacy laws for its citizens,
-                      companies around the world are updating their terms of
-                      service agreements to comply.
-                    </p>
-                    <p className='text-base leading-relaxed text-gray-500 dark:text-gray-400'>
-                      The European Union’s General Data Protection Regulation
-                      (G.D.P.R.) goes into effect on May 25 and is meant to
-                      ensure a common set of data rights in the European Union.
-                      It requires organizations to notify users as soon as
-                      possible of high-risk data breaches that could personally
-                      affect them.
-                    </p>
+                    <form
+                      action=''
+                      onSubmit={handleSubmit}
+                      className='space-y-6'>
+                      <span className='input input-bordered flex items-center gap-2'>
+                        <FaEnvelope />
+                        <input
+                          type='text'
+                          className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+                          name='email'
+                          required
+                          placeholder='Enter Your Email'
+                        />
+                      </span>
+                      <span className='input input-bordered flex items-center gap-2'>
+                        <FaUser />
+                        <input
+                          type='text'
+                          className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+                          name='name'
+                          required
+                          placeholder='Enter Your Name'
+                        />
+                      </span>
+                      <span className='input input-bordered flex items-center gap-2'>
+                        <FaPhone />
+
+                        <input
+                          type='text'
+                          className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+                          name='phone'
+                          required
+                          placeholder='Enter Your Phone Number'
+                          onChange={(e) => {
+                            e.target.value = e.target.value.replace(
+                              /[^0-9]/g,
+                              ''
+                            );
+                          }}
+                        />
+                      </span>
+                      <button className='btn grow bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg w-full my-5 font-bold px-5'>
+                        Submit
+                      </button>
+                    </form>
                   </div>
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={() => setOpenModal(false)}>I accept</Button>
-                  <Button color='gray' onClick={() => setOpenModal(false)}>
-                    Decline
-                  </Button>
-                </Modal.Footer>
               </Modal>
             </div>
           </div>
