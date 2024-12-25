@@ -14,6 +14,14 @@ function MyApplications() {
         setApplications(res.data);
       });
   }, [user]);
+  function handleDelete(id) {
+    axios.delete(`http://localhost:3000/api/applications/${id}`).then((res) => {
+      const newApplications = applications.filter(
+        (application) => application._id !== id
+      );
+      setApplications(newApplications);
+    });
+  }
   return (
     <>
       <div className='min-h-screen '>
@@ -37,14 +45,14 @@ function MyApplications() {
                       <tr key={application._id}>
                         <th>{index + 1}</th>
                         <td>
-                          <Link to={`/marathons/${application._id}`}>
+                          <Link to={`/marathon/${application._id}`}>
                             {application.marathon_title}
                           </Link>
                         </td>
 
                         <td>
                           <Link
-                            to={`/updateMarathon/${application._id}`}
+                            to={`/updateApplication/${application._id}`}
                             className='btn bg-primary-lime hover:bg-lime-500 border-black btn-sm'>
                             Update
                           </Link>

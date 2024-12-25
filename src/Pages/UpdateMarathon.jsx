@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { use, useE } from 'react';
+import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../Routes/AuthProvider';
@@ -64,14 +64,29 @@ function UpdateMarathon({ isUpdate }) {
       created_at,
       created_by: user.email,
     };
-
-    if (isUpdate) {
-      axios.patch(`http://localhost:3000/api/marathons/${id}`, data);
-      navigate('/myMarathons');
-      return;
-    }
-    axios.post('http://localhost:3000/api/marathons', data).then((res) => {});
-    navigate('/myMarathons');
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+        if (isUpdate) {
+          axios.patch(`http://localhost:3000/api/marathons/${id}`, data);
+          navigate('/myMarathons');
+          return;
+        }
+        axios
+          .post('http://localhost:3000/api/marathons', data)
+          .then((res) => {});
+        navigate('/myMarathons');
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
   };
 
   if (loading) {

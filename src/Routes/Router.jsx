@@ -11,6 +11,7 @@ import MyMarathons from '../Pages/MyMarathons';
 import Dashboard from '../Pages/Dashboard';
 import SideNav from '../Components/SideNav';
 import MyApplications from '../Pages/myApplications';
+import UpdateApplication from './../Pages/updateApplication';
 
 function Router() {
   return (
@@ -34,7 +35,7 @@ function Router() {
         element={
           <Layout
             children={
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-4 md:flex-row flex-col'>
                 <SideNav />
                 <UpdateMarathon isUpdate={true} />
               </div>
@@ -47,7 +48,7 @@ function Router() {
         element={
           <Layout
             children={
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-4 md:flex-row flex-col'>
                 <SideNav />
                 <UpdateMarathon isUpdate={false} />
               </div>
@@ -60,7 +61,7 @@ function Router() {
         element={
           <Layout
             children={
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-4 md:flex-row flex-col'>
                 <SideNav />
                 <MyMarathons />
               </div>
@@ -73,9 +74,22 @@ function Router() {
         element={
           <Layout
             children={
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-4 md:flex-row flex-col'>
                 <SideNav />
                 <MyApplications />
+              </div>
+            }
+          />
+        }
+      />
+      <Route
+        path='/updateApplication/:id'
+        element={
+          <Layout
+            children={
+              <div className='flex gap-4 md:flex-row flex-col'>
+                <SideNav />
+                <UpdateApplication />
               </div>
             }
           />
