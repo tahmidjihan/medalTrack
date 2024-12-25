@@ -35,6 +35,7 @@ function Marathon() {
       phone: phone,
       user_email: user?.email,
       marathon_title: marathon?.title,
+      marathon_start: marathon?.eventDay,
       marathon_id: id,
     };
     Swal.fire({

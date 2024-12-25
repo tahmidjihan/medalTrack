@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Routes/AuthProvider';
 import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function MyMarathons() {
   const { user } = useAuth();
@@ -26,8 +27,24 @@ function MyMarathons() {
     }
   }, [loading, user, updated]);
   function handleDelete(id) {
-    axios.delete(`http://localhost:3000/api/marathons/${id}`).then((res) => {
-      setUpdated(!updated);
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+        axios
+          .delete(`http://localhost:3000/api/marathons/${id}`)
+          .then((res) => {
+            setUpdated(!updated);
+          });
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
     });
   }
 

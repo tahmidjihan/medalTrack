@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router';
-import App from '../App';
 import Layout from './Layout';
 import Home from '../Pages/Home';
 import Authenticate from '../Pages/Authenticate';
@@ -12,10 +11,12 @@ import Dashboard from '../Pages/Dashboard';
 import SideNav from '../Components/SideNav';
 import MyApplications from '../Pages/myApplications';
 import UpdateApplication from './../Pages/updateApplication';
+import Err from '../err';
 
 function Router() {
   return (
     <Routes>
+      <Route path='*' element={<Err />} />
       <Route path='/' element={<Layout children={<Home />} />} />
       <Route
         path='/login'

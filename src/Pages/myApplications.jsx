@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../Routes/AuthProvider';
 import axios from 'axios';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 function MyApplications() {
   const { user } = useAuth();
@@ -15,11 +16,27 @@ function MyApplications() {
       });
   }, [user]);
   function handleDelete(id) {
-    axios.delete(`http://localhost:3000/api/applications/${id}`).then((res) => {
-      const newApplications = applications.filter(
-        (application) => application._id !== id
-      );
-      setApplications(newApplications);
+    Swal.fire({
+      title: 'Do you want to Delete?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+        axios
+          .delete(`http://localhost:3000/api/applications/${id}`)
+          .then((res) => {
+            const newApplications = applications.filter(
+              (application) => application._id !== id
+            );
+            setApplications(newApplications);
+          });
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
     });
   }
   return (

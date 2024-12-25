@@ -58,6 +58,26 @@ function UpdateApplication() {
         <p>Fill out the form below to update your application</p>
         <form action='' onSubmit={handleSubmit} className='space-y-6'>
           <span className='input input-bordered flex items-center gap-2'>
+            <span className='font-bold'>Title:</span>
+            <input
+              type='text'
+              className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+              defaultValue={application?.marathon_title}
+              readOnly
+              placeholder='Enter Your Email'
+            />
+          </span>
+          <span className='input input-bordered flex items-center gap-2'>
+            <span className='font-bold'>Start:</span>
+            <input
+              type='text'
+              className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+              defaultValue={application?.marathon_start}
+              readOnly
+              placeholder='Enter Your Email'
+            />
+          </span>
+          <span className='input input-bordered flex items-center gap-2'>
             <FaEnvelope />
             <input
               type='text'
