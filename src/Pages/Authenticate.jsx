@@ -1,23 +1,28 @@
 import React from 'react';
 import Lottie from 'lottie-react';
-import loginLottie from './../assets/login.json';
-import registerLottie from './../assets/register.json';
+import loginLottie from '../assets/login.json';
+import registerLottie from '../assets/register.json';
 import { useAuth } from '../Routes/AuthProvider';
 import { useNavigate } from 'react-router';
 
-function Authorization({ login }) {
+function Authenticate({ login }) {
   const { signUp, loginWithGoogle, signIn, user } = useAuth();
+  const [passError, setPassError] = React.useState('');
   const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    if (login) {
-      signIn(email, password);
+    if (passError !== '') {
+      if (login) {
+        signIn(email, password);
+      } else {
+        const name = e.target.name.value;
+        const image = e.target.image.value;
+        signUp(email, password, name, image);
+      }
     } else {
-      const name = e.target.name.value;
-      const image = e.target.image.value;
-      signUp(email, password, name, image);
+      setPassError('Passwords cannot be empty');
     }
   }
   if (user) {
@@ -143,9 +148,28 @@ function Authorization({ login }) {
                     type='password'
                     id='password'
                     name='password'
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (e.target.value.length < 6) {
+                        setPassError(
+                          'Password must be at least 6 characters long'
+                        );
+                      } else if (
+                        !e.target.value.contains(
+                          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+                        )
+                      ) {
+                        setPassError(
+                          'Password must contain at least one letter and one number'
+                        );
+                      } else {
+                        setPassError('');
+                      }
+                    }}
                     required
                     className='mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300'
                   />
+                  <span className='text-sm text-red-500'>{passError}</span>
                 </div>
                 <div>
                   <button className='w-full btn border border-black bg-primary-lime text-black p-2 rounded-md hover:bg-lime-500 focus:outline-none focus:bg-lime-600 focus:ring-2 focus:ring-offset-2 '>
@@ -176,4 +200,4 @@ function Authorization({ login }) {
   );
 }
 
-export default Authorization;
+export default Authenticate;

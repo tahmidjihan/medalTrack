@@ -13,7 +13,7 @@ function Navbar() {
         </li>
 
         <li>
-          <a>Marathons</a>
+          <Link to='/marathons'>Marathons</Link>
         </li>
         {!user ? (
           <>

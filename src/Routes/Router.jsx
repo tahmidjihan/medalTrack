@@ -3,8 +3,9 @@ import { Route, Routes } from 'react-router';
 import App from '../App';
 import Layout from './Layout';
 import Home from '../Pages/Home';
-import Authorization from './../Pages/Authorization';
+import Authenticate from '../Pages/Authenticate';
 import Marathon from '../Pages/Marathon';
+import Marathons from '../Pages/Marathons';
 
 function Router() {
   return (
@@ -12,16 +13,17 @@ function Router() {
       <Route path='/' element={<Layout children={<Home />} />} />
       <Route
         path='/login'
-        element={<Layout children={<Authorization login={true} />} />}
+        element={<Layout children={<Authenticate login={true} />} />}
       />
       <Route
         path='/register'
-        element={<Layout children={<Authorization login={false} />} />}
+        element={<Layout children={<Authenticate login={false} />} />}
       />
       <Route
         path='/marathons/:id'
         element={<Layout children={<Marathon />} />}
       />
+      <Route path='/marathons' element={<Layout children={<Marathons />} />} />
     </Routes>
   );
 }
