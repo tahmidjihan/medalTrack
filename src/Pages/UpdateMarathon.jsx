@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { use } from 'react';
+import { use, useE } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../Routes/AuthProvider';
@@ -23,14 +23,15 @@ function UpdateMarathon({ isUpdate }) {
       navigate('/login');
       return;
     }
-    setLoading(false);
   }, [user]);
 
   if (isUpdate) {
     useEffect(() => {
       axios.get(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
         setMarathon(res.data[0]);
+        setLoading(false);
       });
+      //   setRegistrationSt(marathon)
     }, [user, loading]);
   }
 
@@ -53,6 +54,7 @@ function UpdateMarathon({ isUpdate }) {
       description,
       imageURL,
       distance,
+      location,
       registrationStart,
       registrationEnding,
       eventDay,
@@ -60,11 +62,21 @@ function UpdateMarathon({ isUpdate }) {
       created_by: user.email,
     };
 
-    axios.post('http://localhost:3000/api/marathons', data).then((res) => {
-      console.log(res.data);
-    });
+    if (isUpdate) {
+      axios.patch(`http://localhost:3000/api/marathons/${id}`, data);
+      navigate('/myMarathons');
+      return;
+    }
+    axios.post('http://localhost:3000/api/marathons', data).then((res) => {});
   };
-  console.log(marathon);
+
+  if (loading) {
+    return (
+      <div className='min-h-screen flex justify-center items-center'>
+        <div className='loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32'></div>
+      </div>
+    );
+  }
   return (
     <>
       <div className='min-h-screen'>
@@ -115,12 +127,14 @@ function UpdateMarathon({ isUpdate }) {
                     className='select select-bordered w-full max-w-xs'
                     name='distance'
                     defaultValue={marathon?.distance || 'Select Distance'}>
-                    <option disabled>Select Distance</option>
-                    <option>15km or less</option>
-                    <option>16km-20km</option>
-                    <option>21km-30km</option>
-                    <option>31km-40km</option>
-                    <option>42km or more</option>
+                    <option value={'Select Distance'} disabled>
+                      Select Distance
+                    </option>
+                    <option value={'15km or less'}>15km or less</option>
+                    <option value={'16km-20km'}>16km-20km</option>
+                    <option value={'21km-30km'}>21km-30km</option>
+                    <option value={'31km-40km'}>31km-40km</option>
+                    <option value={'42km or more'}>42km or more</option>
                   </select>
                 </div>
                 <div className='form-controls flex flex-col gap-1'>

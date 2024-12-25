@@ -63,6 +63,15 @@ function MyMarathons() {
                             Update
                           </Link>
                         </td>
+                        <td>
+                          <button
+                            onClick={() => {
+                              // console.log(marathon._id);
+                            }}
+                            className='btn btn-error border-black btn-sm'>
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
