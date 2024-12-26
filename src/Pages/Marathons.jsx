@@ -3,7 +3,6 @@ import { Card } from 'flowbite-react';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
-
 function Marathons() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [cards, setCards] = React.useState([]);
@@ -16,6 +15,17 @@ function Marathons() {
       }, 800);
     });
   }, []);
+  function sortCardsByDate() {
+    setIsLoading(true);
+    axios
+      .get('http://localhost:3000/api/marathons?sort=eventDay')
+      .then((res) => {
+        setCards(res.data);
+      });
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }
   if (isLoading) {
     return (
       <>
@@ -33,6 +43,14 @@ function Marathons() {
       <Helmet>
         <title> Marathons | MedalTrack</title>
       </Helmet>
+      <h1 className='text-4xl font-extrabold text-center text-gray-900 '>
+        Marathons
+      </h1>
+      <span
+        onClick={sortCardsByDate}
+        className='btn mx-auto text-center bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg my-5 font-bold '>
+        Sort by Date
+      </span>
       <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
         {cards.map((card) => {
           return (

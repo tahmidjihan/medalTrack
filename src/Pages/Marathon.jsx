@@ -17,11 +17,15 @@ function Marathon() {
   const { id } = useParams();
   const { user } = useAuth();
   const [marathon, setMarathon] = React.useState({});
+  const [loading, setLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
     axios(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
       setMarathon(res.data[0]);
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
     });
   }, []);
   function handleSubmit(e) {
@@ -57,8 +61,31 @@ function Marathon() {
         Swal.fire('Changes are not saved', '', 'info');
       }
     });
+  }
+  const [isDisabled, setIsDisabled] = React.useState(false);
+  useEffect(() => {
+    if (!loading) {
+      const EDate = new Date();
+      const date = Date.parse(EDate);
+      const start = Date.parse(marathon.eventDay);
+      const end = Date.parse(marathon.registrationEnd);
+      if (date > end) {
+        setIsDisabled(false);
+      }
+      if (date > start || date < end) {
+        setIsDisabled(true);
+      }
+    }
+  }, [loading]);
 
-    // setOpenModal(false);
+  if (loading) {
+    return (
+      <>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
   }
   return (
     <>
@@ -103,7 +130,17 @@ function Marathon() {
               </span>
 
               <button
-                onClick={() => setOpenModal(true)}
+                onClick={() => {
+                  if (isDisabled) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Registration Closed',
+                    });
+                  } else {
+                    setOpenModal(true);
+                  }
+                }}
                 className='btn bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg my-5 font-bold px-5'>
                 Apply Now!
               </button>
