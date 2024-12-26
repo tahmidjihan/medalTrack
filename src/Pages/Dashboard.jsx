@@ -1,7 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../Routes/AuthProvider';
+import { useNavigate } from 'react-router';
 
 function Dashboard() {
+  const { user } = useAuth();
+  const [loading, setLoading] = React.useState(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user === undefined) {
+      navigate('/login');
+      return;
+    }
+    setLoading(false);
+  }, [user]);
   return (
     <>
       <Helmet>

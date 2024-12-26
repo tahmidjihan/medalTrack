@@ -1,14 +1,21 @@
 import axios from 'axios';
 import { Card } from 'flowbite-react';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 function Marathons() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [cards, setCards] = React.useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user === undefined) {
+      navigate('/login');
+      return;
+    }
+  }, [user]);
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios('http://localhost:3000/api/marathons').then((res) => {
+    axios('https://backend-11.vercel.app/api/marathons').then((res) => {
       setCards(res.data);
       setTimeout(() => {
         setIsLoading(false);
@@ -18,7 +25,7 @@ function Marathons() {
   function sortCardsByDate() {
     setIsLoading(true);
     axios
-      .get('http://localhost:3000/api/marathons?sort=eventDay')
+      .get('https://backend-11.vercel.app/api/marathons?sort=eventDay')
       .then((res) => {
         setCards(res.data);
       });
