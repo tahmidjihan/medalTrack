@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import React, { useEffect } from 'react';
 import auth from './firebase.config';
+import axios from 'axios';
 
 const authContext = React.createContext();
 const useAuth = () => React.useContext(authContext);
@@ -47,12 +48,18 @@ function AuthProvider({ children }) {
   function logOut() {
     signOut(auth).then(() => {
       setUser(null);
+      axios.post('http://localhost:3000/logout', null, {
+        withCredentials: true,
+      });
     });
   }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
+        axios.post('http://localhost:3000/jwt', user, {
+          withCredentials: true,
+        });
       } else {
         setUser(undefined);
       }
