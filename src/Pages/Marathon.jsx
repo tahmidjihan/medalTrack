@@ -12,6 +12,7 @@ import { Button, Modal } from 'flowbite-react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../Routes/AuthProvider';
 import { Helmet } from 'react-helmet-async';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 function Marathon() {
   const { id } = useParams();
@@ -80,6 +81,18 @@ function Marathon() {
     }
   }, [loading]);
 
+  const [remainingTime, setRemainingTime] = React.useState(0);
+  useEffect(() => {
+    if (!loading) {
+      const EDate = new Date(marathon.eventDay);
+
+      const date = Date.parse(EDate);
+
+      const remaining = (date - Date.parse(new Date())) / 1000;
+      setRemainingTime(remaining);
+    }
+  }, [loading]);
+
   if (loading) {
     return (
       <>
@@ -110,6 +123,16 @@ function Marathon() {
               <h1 className='text-4xl font-extrabold pt-2'>
                 {marathon?.title}
               </h1>
+              <div className='py-5'>
+                <CountdownCircleTimer
+                  isPlaying
+                  size={150}
+                  duration={parseInt(remainingTime)}
+                  colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                  colorsTime={[7, 5, 2, 0]}>
+                  {({ remainingTime }) => `${remainingTime} s`}
+                </CountdownCircleTimer>
+              </div>
               <p className='text-md text-gray-500 font-medium flex gap-2 items-center'>
                 <FaCalendarDays />
                 {marathon?.eventDay}
