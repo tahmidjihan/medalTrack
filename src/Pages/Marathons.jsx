@@ -3,9 +3,11 @@ import { Card } from 'flowbite-react';
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../Routes/AuthProvider';
 function Marathons() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [cards, setCards] = React.useState([]);
+  const { user } = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
     if (user === undefined) {

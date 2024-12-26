@@ -49,12 +49,6 @@ function SideNav() {
             icon={HiShoppingBag}>
             My Applications
           </Sidebar.Item>
-
-          <Sidebar.Item
-            href='#'
-            className='btn-error hover:bg-red-600 border-black btn'>
-            <button>Logout</button>
-          </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

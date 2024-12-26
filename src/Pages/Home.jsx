@@ -198,6 +198,12 @@ function Home() {
                   <p className='font-normal text-gray-700 dark:text-gray-400'>
                     {card.shortDescription}
                   </p>
+                  <p className='font-normal text-gray-700 dark:text-gray-400'>
+                    {card.location}
+                  </p>
+                  <p className='font-normal text-gray-700 dark:text-gray-400'>
+                    {card.distance}
+                  </p>
                 </Card>
               );
             })}
