@@ -4,6 +4,7 @@ import loginLottie from '../assets/login.json';
 import registerLottie from '../assets/register.json';
 import { useAuth } from '../Routes/AuthProvider';
 import { useNavigate } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 function Authenticate({ login }) {
   const { signUp, loginWithGoogle, signIn, user } = useAuth();
@@ -31,8 +32,10 @@ function Authenticate({ login }) {
   }
   return (
     <>
+      <Helmet>
+        <title>{login ? 'Login' : 'Register'} | MedalTrack</title>
+      </Helmet>
       <>
-        {/* component */}
         <div className='flex h-screen'>
           {/* Left Pane */}
           <div className='hidden lg:flex items-center justify-center flex-1 bg-white text-black'>

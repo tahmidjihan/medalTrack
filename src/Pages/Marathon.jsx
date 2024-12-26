@@ -11,6 +11,7 @@ import {
 import { Button, Modal } from 'flowbite-react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../Routes/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 function Marathon() {
   const { id } = useParams();
@@ -31,7 +32,6 @@ function Marathon() {
 
     const data = {
       name: name,
-      email: email,
       phone: phone,
       user_email: user?.email,
       marathon_title: marathon?.title,
@@ -49,6 +49,9 @@ function Marathon() {
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
         axios.post('http://localhost:3000/api/applications', data);
+        axios.patch(`http://localhost:3000/api/marathons/${id}`, {
+          reg_count: marathon.reg_count + 1,
+        });
         setOpenModal(false);
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info');
@@ -59,6 +62,9 @@ function Marathon() {
   }
   return (
     <>
+      <Helmet>
+        <title>Marathon | MedalTrack</title>
+      </Helmet>
       <div className='min-h-screen'>
         <div className='container py-16 px-4 md:px-20'>
           <div>
@@ -113,11 +119,36 @@ function Marathon() {
                       onSubmit={handleSubmit}
                       className='space-y-6'>
                       <span className='input input-bordered flex items-center gap-2'>
+                        <span className='font-bold'>Name:</span>
+                        <input
+                          type='text'
+                          className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+                          name='title'
+                          value={marathon?.title}
+                          readOnly
+                          required
+                          placeholder='Enter Your Email'
+                        />
+                      </span>
+                      <span className='input input-bordered flex items-center gap-2'>
+                        <span className='font-bold'>Starts:</span>
+                        <input
+                          type='text'
+                          className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
+                          name='starts'
+                          value={marathon?.eventDay}
+                          readOnly
+                          required
+                          placeholder='Enter Your Email'
+                        />
+                      </span>
+                      <span className='input input-bordered flex items-center gap-2'>
                         <FaEnvelope />
                         <input
                           type='text'
                           className='grow input focus:ring-0 ring-0 focus:outline-0 outline-0 border-0'
                           name='email'
+                          value={user?.email}
                           required
                           placeholder='Enter Your Email'
                         />

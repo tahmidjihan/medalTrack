@@ -3,6 +3,7 @@ import { Carousel } from 'flowbite-react';
 import axios from 'axios';
 import { Button, Card } from 'flowbite-react';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 function Home() {
   function HeroCarousel() {
     const slideInfo = [
@@ -67,6 +68,9 @@ function Home() {
   }
   return (
     <>
+      <Helmet>
+        <title>Home | MedalTrack</title>
+      </Helmet>
       <HeroCarousel />
       <section>
         <div className='container mx-auto px-4 py-16'>
@@ -79,10 +83,10 @@ function Home() {
               excitement of these iconic events.Here is out top marathons
             </p>
           </div>
-          <div className='cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-9'>
+          <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
             {cards.map((card) => {
               return (
-                <Card className='max-w-sm' key={card._id}>
+                <Card className='max-w-sm mx-auto' key={card._id}>
                   <figure>
                     <img
                       className='h-56 w-full object-cover rounded-xl'

@@ -3,11 +3,13 @@ import { useAuth } from '../Routes/AuthProvider';
 import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 function MyMarathons() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [marathons, setMarathons] = useState([]);
   const [updated, setUpdated] = useState(false);
   useEffect(() => {
@@ -23,6 +25,9 @@ function MyMarathons() {
         .get(`http://localhost:3000/api/marathons?email=${user?.email}`)
         .then((res) => {
           setMarathons(res.data);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 800);
         });
     }
   }, [loading, user, updated]);
@@ -47,9 +52,20 @@ function MyMarathons() {
       }
     });
   }
-
+  if (isLoading) {
+    return (
+      <>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
+  }
   return (
     <>
+      <Helmet>
+        <title>My Marathons | MedalTrack</title>
+      </Helmet>
       <div className='min-h-screen '>
         <div className='container py-16 px-4 mx-auto md:px-20'>
           <div className='text-center'>

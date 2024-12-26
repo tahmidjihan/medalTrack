@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useAuth } from '../Routes/AuthProvider';
 import { useNavigate, useParams } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 function UpdateMarathon({ isUpdate }) {
   const { user } = useAuth();
@@ -32,7 +33,9 @@ function UpdateMarathon({ isUpdate }) {
     useEffect(() => {
       axios.get(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
         setMarathon(res.data[0]);
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
       });
       //   setRegistrationSt(marathon)
     }, [user, loading]);
@@ -63,6 +66,7 @@ function UpdateMarathon({ isUpdate }) {
       eventDay,
       created_at,
       created_by: user.email,
+      reg_count: marathon.reg_count || 0,
     };
     Swal.fire({
       title: 'Do you want to save the changes?',
@@ -91,13 +95,18 @@ function UpdateMarathon({ isUpdate }) {
 
   if (loading) {
     return (
-      <div className='min-h-screen flex justify-center items-center'>
-        <div className='loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32'></div>
-      </div>
+      <>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
     );
   }
   return (
     <>
+      <Helmet>
+        <title>Update Marathon | MedalTrack</title>
+      </Helmet>
       <div className='min-h-screen'>
         <div className='container py-16 px-4 md:px-20'>
           <div>

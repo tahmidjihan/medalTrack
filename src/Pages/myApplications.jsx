@@ -3,16 +3,20 @@ import { useAuth } from '../Routes/AuthProvider';
 import axios from 'axios';
 import { Link } from 'react-router';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 function MyApplications() {
   const { user } = useAuth();
-  //   const [loading, setLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [applications, setApplications] = React.useState([]);
   useEffect(() => {
     axios
       .get(`http://localhost:3000/api/applications?email=${user?.email}`)
       .then((res) => {
         setApplications(res.data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 800);
       });
   }, [user]);
   function handleDelete(id) {
@@ -39,8 +43,20 @@ function MyApplications() {
       }
     });
   }
+  if (isLoading) {
+    return (
+      <>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
+  }
   return (
     <>
+      <Helmet>
+        <title>My Applications | MedalTrack</title>
+      </Helmet>
       <div className='min-h-screen '>
         <div className='container py-16 px-4 mx-auto md:px-20'>
           <div className='text-center'>

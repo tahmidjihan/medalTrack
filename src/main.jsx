@@ -5,13 +5,16 @@ import { BrowserRouter } from 'react-router';
 import Router from './Routes/Router';
 import AuthProvider from './Routes/AuthProvider';
 import 'sweetalert2/src/sweetalert2.scss';
+import { HelmetProvider } from 'react-helmet-async';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>
 );

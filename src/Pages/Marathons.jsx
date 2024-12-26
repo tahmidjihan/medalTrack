@@ -2,21 +2,41 @@ import axios from 'axios';
 import { Card } from 'flowbite-react';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet-async';
 
 function Marathons() {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [cards, setCards] = React.useState([]);
   useEffect(() => {
     window.scrollTo(0, 0);
     axios('http://localhost:3000/api/marathons').then((res) => {
       setCards(res.data);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800);
     });
   }, []);
+  if (isLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Loading Marathons</title>
+        </Helmet>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
+  }
   return (
     <div className='container py-16 mx-auto px-4 md:px-20'>
-      <div className='cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-9'>
+      <Helmet>
+        <title> Marathons | MedalTrack</title>
+      </Helmet>
+      <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
         {cards.map((card) => {
           return (
-            <Card className='max-w-sm' key={card._id}>
+            <Card className='max-w-sm mx-auto' key={card._id}>
               <figure>
                 <img
                   className='h-56 w-full object-cover rounded-xl'

@@ -4,16 +4,20 @@ import { useNavigate, useParams } from 'react-router';
 import { useAuth } from '../Routes/AuthProvider';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 function UpdateApplication() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useAuth();
   const [application, setApplication] = React.useState({});
-
+  const [isLoading, setIsLoading] = React.useState(true);
   useEffect(() => {
     axios.get(`http://localhost:3000/api/applications?id=${id}`).then((res) => {
       setApplication(res.data[0]);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800);
     });
   }, []);
 
@@ -50,9 +54,20 @@ function UpdateApplication() {
       }
     });
   };
-
+  if (isLoading) {
+    return (
+      <>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
+  }
   return (
     <>
+      <Helmet>
+        <title>Update Application | MedalTrack</title>
+      </Helmet>
       <div className='space-y-6 mx-auto my-10'>
         <h1 className='text-3xl font-bold'>Update Application</h1>
         <p>Fill out the form below to update your application</p>

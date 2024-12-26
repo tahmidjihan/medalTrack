@@ -101,7 +101,7 @@ function Router() {
         element={
           <Layout
             children={
-              <div className='flex gap-4 flex-wrap'>
+              <div className='flex gap-4 md:flex-row flex-col'>
                 <SideNav />
                 <Dashboard />
               </div>
