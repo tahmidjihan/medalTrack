@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import {
   FaCalendarDays,
   FaEnvelope,
@@ -16,6 +16,7 @@ import { Helmet } from 'react-helmet-async';
 function Marathon() {
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [marathon, setMarathon] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [openModal, setOpenModal] = React.useState(false);
@@ -56,6 +57,7 @@ function Marathon() {
         axios.patch(`http://localhost:3000/api/marathons/${id}`, {
           reg_count: marathon.reg_count + 1,
         });
+        navigate('/myApplications');
         setOpenModal(false);
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info');

@@ -43,6 +43,19 @@ function MyApplications() {
       }
     });
   }
+  function searchDb(e) {
+    e.preventDefault();
+
+    const search = e.target.search.value;
+
+    axios
+      .get(
+        `http://localhost:3000/api/applications?email=${user?.email}&search=${search}`
+      )
+      .then((res) => {
+        setApplications(res.data);
+      });
+  }
   if (isLoading) {
     return (
       <>
@@ -62,6 +75,32 @@ function MyApplications() {
           <div className='text-center'>
             <h1 className='text-5xl font-extrabold'>My Applications</h1>
             <h2 className='text-2xl font-bold'>Details</h2>
+          </div>
+          <form
+            action=''
+            className='input input-bordered rounded-full my-3 flex items-center gap-2'
+            onSubmit={searchDb}>
+            <input
+              type='text'
+              className='grow focus:outline-none focus:ring-0 ring-0 focus:bg-transparent focus:border-0 border-0'
+              placeholder='Search'
+              name='search'
+            />
+            <button className='btn bg-primary-lime border-black hover:bg-lime-500 text-black rounded-full'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 16 16'
+                fill='0000'
+                className='h-4 w-4 opacity-70'>
+                <path
+                  fillRule='evenodd'
+                  d='M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z'
+                  clipRule='evenodd'
+                />
+              </svg>
+            </button>
+          </form>
+          <div className='mt-8'>
             <div className='mx-auto'>
               <div className='overflow-x-auto'>
                 <table className='table table-zebra'>
@@ -74,6 +113,28 @@ function MyApplications() {
                   </thead>
                   <tbody>
                     {/* row 1 */}
+                    {applications.length === 0 && (
+                      <tr>
+                        <td colSpan='4'>
+                          <div className='alert alert-info shadow-lg'>
+                            <div>
+                              <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                className='stroke-current flex-shrink-0 w-6 h-6'>
+                                <path
+                                  strokeLinecap='round'
+                                  strokeLinejoin='round'
+                                  strokeWidth='2'
+                                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+                              </svg>
+                              <span>There are no applications</span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                     {applications.map((application, index) => (
                       <tr key={application._id}>
                         <th>{index + 1}</th>
