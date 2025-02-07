@@ -56,7 +56,7 @@ Replace the values with your **own Firebase credentials** from the [Firebase Con
 
 1. Clone the repository:  
    ```sh
-   git clone https://github.com/yourusername/medaltrack.git  
+   git clone https://github.com/tahmidjihan/medaltrack.git  
    cd medaltrack  
    ```
 2. Install dependencies:  
