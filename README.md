@@ -71,7 +71,7 @@ Replace the values with your **own Firebase credentials** from the [Firebase Con
 
 ## 🌍 Live Demo  
 
-Check out the live version: [MedalTrack – Live](https://medal-track.web.app/)  
+Check out the live version: [MedalTrack](https://medal-track.web.app/)  
 
 ## 📖 Additional Resources  
 
