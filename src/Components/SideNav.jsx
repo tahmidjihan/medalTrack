@@ -9,8 +9,9 @@ import {
   HiUser,
   HiViewBoards,
 } from 'react-icons/hi';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 function SideNav() {
+  const location = useLocation();
   const navigate = useNavigate();
   return (
     <Sidebar
@@ -23,6 +24,7 @@ function SideNav() {
               navigate('/dashboard');
             }}
             href='#'
+            active={location.pathname === '/dashboard' ? true : false}
             icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
@@ -31,6 +33,7 @@ function SideNav() {
             onClick={() => {
               navigate('/addMarathon');
             }}
+            active={location.pathname === '/addMarathon' ? true : false}
             icon={HiInbox}>
             Add Marathon
           </Sidebar.Item>
@@ -38,6 +41,7 @@ function SideNav() {
             onClick={() => {
               navigate('/myMarathons');
             }}
+            active={location.pathname === '/myMarathons' ? true : false}
             icon={HiUser}>
             My Marathons
           </Sidebar.Item>
@@ -46,6 +50,7 @@ function SideNav() {
             onClick={() => {
               navigate('/myApplications');
             }}
+            active={location.pathname === '/myApplications' ? true : false}
             icon={HiShoppingBag}>
             My Applications
           </Sidebar.Item>

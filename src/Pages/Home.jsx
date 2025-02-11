@@ -5,7 +5,9 @@ import { Button, Card } from 'flowbite-react';
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2';
+
 function Home() {
+  const [isLoading, setIsLoading] = React.useState(true);
   function HeroCarousel() {
     const slideInfo = [
       {
@@ -110,6 +112,7 @@ function Home() {
   useEffect(() => {
     axios.get('http://localhost:3000/api/marathons?size=6').then((result) => {
       setCards(result.data);
+      setIsLoading(false);
     });
   }, []);
   function limitText(text, limit) {
@@ -117,6 +120,18 @@ function Home() {
       return text.substring(0, limit) + '...';
     }
     return text;
+  }
+  if (isLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Loading Marathons</title>
+        </Helmet>
+        <div className='min-h-screen flex justify-center mx-auto items-center'>
+          <span className='loading loading-spinner loading-lg'></span>
+        </div>
+      </>
+    );
   }
   return (
     <>
@@ -138,7 +153,9 @@ function Home() {
           <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
             {cards.map((card) => {
               return (
-                <Card className='max-w-sm mx-auto' key={card._id}>
+                <div
+                  className='max-w-sm min-w-sm justify-between  mx-auto border border-gray-300 flex flex-col gap-3 max-h-md min-h-md rounded-lg card px-4 py-6 shadow-md '
+                  key={card._id}>
                   <figure>
                     <img
                       className='h-56 w-full object-cover rounded-xl'
@@ -146,7 +163,7 @@ function Home() {
                       alt={card.title}
                     />
                   </figure>
-                  <h2 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+                  <h2 className='text-2xl font-bold tracking-tight'>
                     {card.title}
                   </h2>
                   <span className='text-sm text-gray-500'>{card.eventDay}</span>
@@ -169,7 +186,7 @@ function Home() {
                       />
                     </svg>
                   </Link>
-                </Card>
+                </div>
               );
             })}
           </div>
@@ -189,8 +206,10 @@ function Home() {
           <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
             {upcomingEvents.map((card) => {
               return (
-                <Card className='max-w-sm mx-auto' key={card.title}>
-                  <h2 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+                <div
+                  className='max-w-sm min-w-sm justify-between  mx-auto border border-gray-300 flex flex-col gap-3 max-h-md min-h-md rounded-lg card px-4 py-6 shadow-md '
+                  key={card.title}>
+                  <h2 className='text-2xl font-bold tracking-tight'>
                     {card.title}
                   </h2>
                   <span className='text-sm text-gray-500'>{card.date}</span>
@@ -203,7 +222,7 @@ function Home() {
                   <p className='font-normal text-gray-700 dark:text-gray-400'>
                     {card.distance}
                   </p>
-                </Card>
+                </div>
               );
             })}
           </div>

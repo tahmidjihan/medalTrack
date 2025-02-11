@@ -63,7 +63,9 @@ function Marathons() {
       <div className='cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-9'>
         {cards.map((card) => {
           return (
-            <Card className='max-w-sm mx-auto' key={card._id}>
+            <div
+              className='max-w-sm min-w-sm justify-between  mx-auto border border-gray-300 flex flex-col gap-3 max-h-md min-h-md rounded-lg card px-4 py-6 shadow-md '
+              key={card._id}>
               <figure>
                 <img
                   className='h-56 w-full object-cover rounded-xl'
@@ -71,13 +73,11 @@ function Marathons() {
                   alt={card.title}
                 />
               </figure>
-              <h2 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+              <h2 className='text-2xl font-bold tracking-tight'>
                 {card.title}
               </h2>
               <span className='text-sm text-gray-500'>{card.eventDay}</span>
-              <p className='font-normal text-gray-700 dark:text-gray-400'>
-                {card.description}
-              </p>
+              <p className='font-normal '>{card.description}</p>
               <Link
                 to={`/marathons/${card._id}`}
                 className='btn w-full bg-primary-lime border-black text-black hover:bg-lime-500'>
@@ -94,7 +94,7 @@ function Marathons() {
                   />
                 </svg>
               </Link>
-            </Card>
+            </div>
           );
         })}
       </div>

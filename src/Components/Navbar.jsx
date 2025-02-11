@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { useAuth } from '../Routes/AuthProvider';
+import Marathons from './../Pages/Marathons';
+import Theme from './Theme';
 
 function Navbar() {
   const { user, logOut } = useAuth();
@@ -8,6 +10,9 @@ function Navbar() {
   function Menu() {
     return (
       <>
+        <li>
+          <Theme />
+        </li>
         <li>
           <Link to='/'>Home</Link>
         </li>
@@ -29,17 +34,22 @@ function Navbar() {
             <li>
               <Link to='/dashboard'>Dashboard</Link>
             </li>
-            <li className=' p-0'>
-              <div>
-                <img
-                  src={user?.photoURL}
-                  className='w-[50px] h-[50px] rounded-full'
-                  alt=''
-                />
-              </div>
+            <li>
+              <Link to='/myMarathons'>My Marathons</Link>
             </li>
             <li>
-              <button onClick={logOut} className='bg-error font-bold'>
+              <Link to='/myApplications'>My Applications</Link>
+            </li>
+            <div>
+              <img
+                src={user?.photoURL}
+                className='w-[40px] h-[40px] mx-3 rounded-full'
+                alt=''
+              />
+            </div>
+
+            <li>
+              <button onClick={logOut} className='btn btn-error btn-xs'>
                 Logout
               </button>
             </li>
@@ -60,10 +70,10 @@ function Navbar() {
           </Link>
         </div>
         <div className='flex-none'>
-          <ul className='menu menu-horizontal px-1 items-center hidden md:flex'>
+          <ul className='menu menu-horizontal px-1 items-center hidden lg:flex'>
             <Menu></Menu>
           </ul>
-          <div className='dropdown dropdown-left flex md:hidden'>
+          <div className='dropdown dropdown-left flex lg:hidden'>
             <div
               tabIndex={0}
               role='button'
