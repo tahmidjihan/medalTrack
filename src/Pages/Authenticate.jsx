@@ -38,7 +38,7 @@ function Authenticate({ login }) {
       <>
         <div className='flex h-screen'>
           {/* Left Pane */}
-          <div className='hidden lg:flex items-center justify-center flex-1 bg-white text-black'>
+          <div className='hidden lg:flex items-center justify-center flex-1 text-black'>
             <div className='absolute'>
               <Lottie
                 animationData={login ? loginLottie : registerLottie}
@@ -49,9 +49,9 @@ function Authenticate({ login }) {
             </div>
           </div>
           {/* Right Pane */}
-          <div className='w-full bg-gray-100 lg:w-1/2 flex items-center justify-center'>
+          <div className='w-full lg:w-1/2 flex items-center justify-center'>
             <div className='max-w-md w-full p-6'>
-              <h1 className='text-4xl font-bold mb-6 text-black text-center'>
+              <h1 className='text-4xl font-bold mb-6 text-center'>
                 {login ? 'Login Now!' : 'Register Now!'}
               </h1>
               <h1 className='text-sm font-semibold mb-6 text-gray-500 text-center'>
@@ -90,7 +90,7 @@ function Authenticate({ login }) {
                   </span>
                 </div>
               </div>
-              <div className='mt-4 text-sm text-gray-600 text-center'>
+              <div className='mt-4 text-sm text-gray-400 text-center'>
                 <p>or with email</p>
               </div>
               <form onSubmit={handleSubmit} className='space-y-4'>
@@ -180,7 +180,7 @@ function Authenticate({ login }) {
                   </button>
                 </div>
               </form>
-              <div className='mt-4 text-sm text-gray-600 text-center'>
+              <div className='mt-4 text-sm text-gray-400 text-center'>
                 <p>
                   {login
                     ? "Don't have an account? "

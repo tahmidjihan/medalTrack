@@ -11,9 +11,6 @@ function Navbar() {
     return (
       <>
         <li>
-          <Theme />
-        </li>
-        <li>
           <Link to='/'>Home</Link>
         </li>
 
@@ -28,6 +25,9 @@ function Navbar() {
             <li>
               <Link to='/register'>Register</Link>
             </li>
+            <li>
+              <Theme />
+            </li>
           </>
         ) : (
           <>
@@ -39,6 +39,9 @@ function Navbar() {
             </li>
             <li>
               <Link to='/myApplications'>My Applications</Link>
+            </li>
+            <li>
+              <Theme />
             </li>
             <div>
               <img
@@ -60,7 +63,7 @@ function Navbar() {
   }
   return (
     <>
-      <div className='navbar bg-base-100 shadow-md px-10'>
+      <div className='navbar bg-base-100 shadow-md justify-between sm:px-8'>
         <div className='flex-1 container'>
           <Link
             to='/'
@@ -69,8 +72,8 @@ function Navbar() {
             MedalTrack
           </Link>
         </div>
-        <div className='flex-none'>
-          <ul className='menu menu-horizontal px-1 items-center hidden lg:flex'>
+        <div className=''>
+          <ul className='menu menu-horizontal items-center hidden lg:flex'>
             <Menu></Menu>
           </ul>
           <div className='dropdown dropdown-left flex lg:hidden'>
