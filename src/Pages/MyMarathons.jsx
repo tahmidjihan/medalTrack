@@ -22,7 +22,7 @@ function MyMarathons() {
   useEffect(() => {
     if (!loading) {
       axios
-        .get(`https://backend-11.vercel.app/api/marathons?email=${user?.email}`)
+        .get(`http://localhost:3000/api/marathons?email=${user?.email}`)
         .then((res) => {
           setMarathons(res.data);
           setTimeout(() => {
@@ -43,7 +43,7 @@ function MyMarathons() {
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
         axios
-          .delete(`https://backend-11.vercel.app/api/marathons/${id}`)
+          .delete(`http://localhost:3000/api/marathons/${id}`)
           .then((res) => {
             setUpdated(!updated);
           });

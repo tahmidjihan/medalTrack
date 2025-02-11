@@ -50,12 +50,14 @@ function Navbar() {
   }
   return (
     <>
-      <div className='navbar bg-base-100 shadow-md'>
-        <div className='flex-1'>
-          <a className='btn btn-ghost text-xl font-bold flex flex-row bg-[#212121] text-white'>
+      <div className='navbar bg-base-100 shadow-md px-10'>
+        <div className='flex-1 container'>
+          <Link
+            to='/'
+            className='btn btn-ghost text-xl font-bold flex flex-row bg-[#212121] text-white'>
             <img src='./../medal.svg' className='w-8 h-8' alt='Logo' />
             MedalTrack
-          </a>
+          </Link>
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1 items-center hidden md:flex'>

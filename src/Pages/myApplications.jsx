@@ -18,9 +18,7 @@ function MyApplications() {
   }, [user]);
   useEffect(() => {
     axios
-      .get(
-        `https://backend-11.vercel.app/api/applications?email=${user?.email}`
-      )
+      .get(`http://localhost:3000/api/applications?email=${user?.email}`)
       .then((res) => {
         setApplications(res.data);
         setTimeout(() => {
@@ -40,7 +38,7 @@ function MyApplications() {
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
         axios
-          .delete(`https://backend-11.vercel.app/api/applications/${id}`)
+          .delete(`http://localhost:3000/api/applications/${id}`)
           .then((res) => {
             const newApplications = applications.filter(
               (application) => application._id !== id
@@ -59,7 +57,7 @@ function MyApplications() {
 
     axios
       .get(
-        `https://backend-11.vercel.app/api/applications?email=${user?.email}&search=${search}`
+        `http://localhost:3000/api/applications?email=${user?.email}&search=${search}`
       )
       .then((res) => {
         setApplications(res.data);

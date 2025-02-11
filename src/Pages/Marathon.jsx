@@ -23,14 +23,12 @@ function Marathon() {
   const [openModal, setOpenModal] = React.useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios(`https://backend-11.vercel.app/api/marathons?id=${id}`).then(
-      (res) => {
-        setMarathon(res.data[0]);
-        setTimeout(() => {
-          setLoading(false);
-        }, 800);
-      }
-    );
+    axios(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
+      setMarathon(res.data[0]);
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
+    });
   }, []);
   function handleSubmit(e) {
     e.preventDefault();
@@ -56,8 +54,8 @@ function Marathon() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
-        axios.post('https://backend-11.vercel.app/api/applications', data);
-        axios.patch(`https://backend-11.vercel.app/api/marathons/${id}`, {
+        axios.post('http://localhost:3000/api/applications', data);
+        axios.patch(`http://localhost:3000/api/marathons/${id}`, {
           reg_count: marathon.reg_count + 1,
         });
         navigate('/myApplications');

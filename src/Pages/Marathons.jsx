@@ -17,7 +17,7 @@ function Marathons() {
   }, [user]);
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios('https://backend-11.vercel.app/api/marathons').then((res) => {
+    axios('http://localhost:3000/api/marathons').then((res) => {
       setCards(res.data);
       setTimeout(() => {
         setIsLoading(false);
@@ -27,7 +27,7 @@ function Marathons() {
   function sortCardsByDate() {
     setIsLoading(true);
     axios
-      .get('https://backend-11.vercel.app/api/marathons?sort=eventDay')
+      .get('http://localhost:3000/api/marathons?sort=eventDay')
       .then((res) => {
         setCards(res.data);
       });

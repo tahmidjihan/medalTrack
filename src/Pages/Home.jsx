@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button, Card } from 'flowbite-react';
 import { Link } from 'react-router';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 function Home() {
   function HeroCarousel() {
     const slideInfo = [
@@ -36,13 +37,13 @@ function Home() {
                 key={slide.title}
                 className='h-full w-full relative flex items-center justify-center'>
                 <img
-                  className='h-full w-full object-cover'
+                  className='h-full min-h-screen cover w-full object-cover'
                   src={slide.image}
                   alt={slide.title}
                 />
                 <div className='absolute inset-0 bg-black bg-opacity-50'></div>{' '}
                 <div className='absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center'>
-                  <h1 className='text-6xl uppercase font-bold text-white mb-4'>
+                  <h1 className='text-4xl md:text-6xl uppercase font-bold text-white mb-4'>
                     {slide.title}
                   </h1>
                   <p className='text-lg text-white'>{slide.description}</p>
@@ -107,11 +108,9 @@ function Home() {
 
   const [cards, setCards] = useState([]);
   useEffect(() => {
-    axios
-      .get('https://backend-11.vercel.app/api/marathons?size=6')
-      .then((result) => {
-        setCards(result.data);
-      });
+    axios.get('http://localhost:3000/api/marathons?size=6').then((result) => {
+      setCards(result.data);
+    });
   }, []);
   function limitText(text, limit) {
     if (text.length > limit) {
@@ -231,6 +230,51 @@ function Home() {
           </div>
         </div>
       </div>
+      <section>
+        <div className='flex h-full justify-center items-center dark:bg-gray-800'>
+          <div className='p-6'>
+            <div className='flex flex-wrap items-center w-full max-w-5xl p-5 mx-auto text-left border border-gray-200 rounded lg:flex-nowrap md:p-8 dark:border-gray-700'>
+              <div className='flex-1 w-full mb-5 md:mb-0 md:pr-5 lg:pr-10 md:w-1/2'>
+                <h3 className='mb-2 text-2xl font-bold text-gray-700 dark:text-gray-200'>
+                  Subscribe to Newsletter
+                </h3>
+                <p className='text-gray-500 dark:text-gray-400 '>
+                  Provide your email to get email notification when we launch
+                  new products or publish new articles
+                </p>
+              </div>
+              <div className='w-full px-1 flex-0 md:w-auto lg:w-1/2'>
+                <form noValidate=''>
+                  <input type='hidden' name='tags' defaultValue='earlyaccess' />
+                  <div className='flex flex-col sm:flex-row'>
+                    <input
+                      type='email'
+                      id='email'
+                      name='email'
+                      placeholder='Enter your email address'
+                      className='flex-1 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md sm:mr-5 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500'
+                    />
+                    <button
+                      type='button'
+                      onClick={() => {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Success',
+                          text: 'You have successfully subscribed to our newsletter!',
+                          showConfirmButton: false,
+                          timer: 3000,
+                        });
+                      }}
+                      className='btn bg-primary-lime rounded-full border-black hover:bg-lime-500 '>
+                      Get Started
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className='bg-white dark:bg-gray-900 min-h-screen'>
         <div className='min-h-screen bg-gray-800 py-6 flex flex-col justify-center sm:py-12'>
           <div className='relative py-3 sm:max-w-xl sm:mx-auto'>
@@ -272,7 +316,16 @@ function Home() {
                 <div className='flex justify-between'>
                   <input
                     className='shadow bg-primary-lime  hover:bg-lime-500 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-                    type='submit'
+                    type='button'
+                    onClick={() => {
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'You have successfully submitted your message!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                      });
+                    }}
                     defaultValue='Send ➤'
                   />
                   <input

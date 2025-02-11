@@ -48,21 +48,14 @@ function AuthProvider({ children }) {
   function logOut() {
     signOut(auth).then(() => {
       setUser(null);
-      axios.post('https://backend-11.vercel.app/logout', null, {
+      axios.post('http://localhost:3000/logout', null, {
         withCredentials: true,
       });
     });
   }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-        axios.post('https://backend-11.vercel.app/jwt', user, {
-          withCredentials: true,
-        });
-      } else {
-        setUser(undefined);
-      }
+      setUser(user);
     });
 
     return () => unsubscribe();

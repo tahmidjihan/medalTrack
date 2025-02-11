@@ -13,14 +13,12 @@ function UpdateApplication() {
   const [application, setApplication] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
   useEffect(() => {
-    axios
-      .get(`https://backend-11.vercel.app/api/applications?id=${id}`)
-      .then((res) => {
-        setApplication(res.data[0]);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 800);
-      });
+    axios.get(`http://localhost:3000/api/applications?id=${id}`).then((res) => {
+      setApplication(res.data[0]);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 800);
+    });
   }, []);
 
   const handleSubmit = (e) => {
@@ -47,10 +45,7 @@ function UpdateApplication() {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
-        axios.patch(
-          `https://backend-11.vercel.app/api/applications/${id}`,
-          data
-        );
+        axios.patch(`http://localhost:3000/api/applications/${id}`, data);
         setTimeout(() => {
           navigate('/myApplications');
         }, 1500);
