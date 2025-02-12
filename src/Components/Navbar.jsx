@@ -63,7 +63,8 @@ function Navbar() {
   }
   return (
     <>
-      <div className='navbar bg-base-100 shadow-md justify-between sm:px-8'>
+      <div className='h-16 pb-3'></div>
+      <div className='navbar bg-base-100 shadow-md justify-between sm:px-8 fixed top-0 z-50'>
         <div className='flex-1 container'>
           <Link
             to='/'

@@ -107,8 +107,8 @@ function UpdateMarathon({ isUpdate }) {
       <Helmet>
         <title>Update Marathon | MedalTrack</title>
       </Helmet>
-      <div className='min-h-screen'>
-        <div className='container py-16 px-4 md:px-20'>
+      <div className='min-h-screen bg-base-200 rounded-md border-t-[20px] border-primary-lime my-10 mx-auto overflow-x-hidden'>
+        <div className='container py-16 mx-auto md:px-20'>
           <div>
             <h1 className='text-5xl font-extrabold'>
               {isUpdate ? 'Update' : 'Create'} Marathon

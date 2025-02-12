@@ -52,9 +52,7 @@ function Marathons() {
       <Helmet>
         <title> Marathons | MedalTrack</title>
       </Helmet>
-      <h1 className='text-4xl font-extrabold text-center text-gray-900 '>
-        Marathons
-      </h1>
+      <h1 className='text-4xl font-extrabold text-center '>Marathons</h1>
       <span
         onClick={sortCardsByDate}
         className='btn mx-auto text-center bg-primary-lime hover:bg-lime-500 border-black text-black rounded-full text-lg my-5 font-bold '>

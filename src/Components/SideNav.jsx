@@ -16,7 +16,7 @@ function SideNav() {
   return (
     <Sidebar
       aria-label='Default sidebar example'
-      className='w-screen md:w-64 md:h-screen'>
+      className='w-screen md:w-64 md:h-screen '>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
           <Sidebar.Item

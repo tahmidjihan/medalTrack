@@ -66,10 +66,12 @@ function MyMarathons() {
       <Helmet>
         <title>My Marathons | MedalTrack</title>
       </Helmet>
-      <div className='min-h-screen '>
-        <div className='container py-16 px-4 mx-auto md:px-20'>
+      <div className='min-h-screen bg-base-200 rounded-md border-t-[20px] border-primary-lime my-10 mx-auto overflow-x-hidden'>
+        <div className='container py-16 mx-auto md:px-20'>
           <div className='text-center'>
-            <h1 className='text-5xl font-extrabold'>My Marathons</h1>
+            <h1 className='text-3xl sm:text-5xl font-extrabold'>
+              My Marathons
+            </h1>
             <h2 className='text-2xl font-bold'>Details</h2>
             <div className='mx-auto'>
               <div className='overflow-x-auto'>
