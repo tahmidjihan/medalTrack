@@ -77,7 +77,7 @@ function MyApplications() {
       <Helmet>
         <title>My Applications | MedalTrack</title>
       </Helmet>
-      <div className='min-h-screen bg-base-200 rounded-md border-t-[20px] border-primary-lime my-10 mx-auto overflow-x-hidden'>
+      <div className='min-h-screen overflow-hidden bg-base-200 rounded-md border-t-[20px] border-primary-lime my-10 mx-auto overflow-x-hidden'>
         <div className='container py-16 mx-auto md:px-20'>
           <div className='text-center'>
             <h1 className='text-3xl sm:text-5xl font-extrabold'>
@@ -156,7 +156,7 @@ function MyApplications() {
                         <td>
                           <Link
                             to={`/updateApplication/${application._id}`}
-                            className='btn bg-primary-lime hover:bg-lime-500 border-black btn-sm'>
+                            className='btn bg-primary-lime hover:bg-lime-500 border-black btn-xs'>
                             Update
                           </Link>
                         </td>
@@ -165,7 +165,7 @@ function MyApplications() {
                             onClick={() => {
                               handleDelete(application._id);
                             }}
-                            className='btn btn-error border-black btn-sm'>
+                            className='btn btn-error border-black btn-xs'>
                             Delete
                           </button>
                         </td>

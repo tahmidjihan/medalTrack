@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 function Theme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  const getSystemTheme = () =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  const savedTheme = localStorage.getItem('theme') || getSystemTheme();
   const [theme, setTheme] = useState(savedTheme);
   useEffect(() => {
     document.documentElement.getAttribute('data-theme', theme);
