@@ -10,12 +10,14 @@ import {
   HiViewBoards,
 } from 'react-icons/hi';
 import { Link, useLocation, useNavigate } from 'react-router';
+
 function SideNav() {
   const location = useLocation();
   const navigate = useNavigate();
   return (
     <Sidebar
       aria-label='Default sidebar example'
+      data-Theme='dark'
       className='w-screen md:w-64 md:h-screen '>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
