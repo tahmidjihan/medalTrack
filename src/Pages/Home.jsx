@@ -110,10 +110,12 @@ function Home() {
 
   const [cards, setCards] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:3000/api/marathons?size=6').then((result) => {
-      setCards(result.data);
-      setIsLoading(false);
-    });
+    axios
+      .get('https://backend-11.vercel.app/api/marathons?size=6')
+      .then((result) => {
+        setCards(result.data);
+        setIsLoading(false);
+      });
   }, []);
   function limitText(text, limit) {
     if (text.length > limit) {

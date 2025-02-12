@@ -31,12 +31,14 @@ function UpdateMarathon({ isUpdate }) {
 
   if (isUpdate) {
     useEffect(() => {
-      axios.get(`http://localhost:3000/api/marathons?id=${id}`).then((res) => {
-        setMarathon(res.data[0]);
-        setTimeout(() => {
-          setLoading(false);
-        }, 800);
-      });
+      axios
+        .get(`https://backend-11.vercel.app/api/marathons?id=${id}`)
+        .then((res) => {
+          setMarathon(res.data[0]);
+          setTimeout(() => {
+            setLoading(false);
+          }, 800);
+        });
       //   setRegistrationSt(marathon)
     }, [user, loading]);
   }
@@ -79,12 +81,15 @@ function UpdateMarathon({ isUpdate }) {
       if (result.isConfirmed) {
         Swal.fire('Saved!', '', 'success');
         if (isUpdate) {
-          axios.patch(`http://localhost:3000/api/marathons/${id}`, data);
+          axios.patch(
+            `https://backend-11.vercel.app/api/marathons/${id}`,
+            data
+          );
           navigate('/myMarathons');
           return;
         }
         axios
-          .post('http://localhost:3000/api/marathons', data)
+          .post('https://backend-11.vercel.app/api/marathons', data)
           .then((res) => {});
         navigate('/myMarathons');
       } else if (result.isDenied) {

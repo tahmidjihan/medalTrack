@@ -48,7 +48,7 @@ function AuthProvider({ children }) {
   function logOut() {
     signOut(auth).then(() => {
       setUser(null);
-      axios.post('http://localhost:3000/logout', null, {
+      axios.post('https://backend-11.vercel.app/logout', null, {
         withCredentials: true,
       });
     });
